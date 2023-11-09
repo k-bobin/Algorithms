@@ -1,19 +1,17 @@
-SELECT DATE_FORMAT(Z.SALES_DATE,'%Y-%m-%d') AS SALES_DATE, Z.PRODUCT_ID, Z.USER_ID, Z.SALES_AMOUNT
-    FROM (
-            SELECT ONLINE_SALE_ID AS SALE_ID
-                   ,USER_ID
-                   ,PRODUCT_ID
-                   ,SALES_AMOUNT
-                   ,SALES_DATE
-                FROM ONLINE_SALE
-            UNION ALL
-            SELECT OFFLINE_SALE_ID AS SALE_ID
-                   ,NULL AS USER_ID
-                   ,PRODUCT_ID
-                   ,SALES_AMOUNT
-                   ,SALES_DATE
-                FROM OFFLINE_SALE
-        ) AS Z
-        WHERE DATE_FORMAT(Z.SALES_DATE, '%Y') =2022 
-        AND DATE_FORMAT(Z.SALES_DATE, '%m') = 03
-        ORDER BY SALES_DATE, PRODUCT_ID, USER_ID;
+-- 코드를 입력하세요
+SELECT DATE_FORMAT(SALES_DATE, '%Y-%m-%d') AS SALES_DATE,
+        PRODUCT_ID,
+        USER_ID,
+        SALES_AMOUNT
+FROM ONLINE_SALE
+WHERE SALES_DATE BETWEEN '2022-03-01' AND '2022-03-31'
+UNION ALL
+SELECT DATE_FORMAT(SALES_DATE, '%Y-%m-%d') AS SALES_DATE,
+        PRODUCT_ID,
+        NULL as USER_ID,
+        SALES_AMOUNT
+FROM OFFLINE_SALE
+WHERE SALES_DATE BETWEEN '2022-03-01' AND '2022-03-31'
+ORDER BY SALES_DATE,
+         PRODUCT_ID,
+         USER_ID
